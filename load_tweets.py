@@ -116,7 +116,7 @@ def insert_tweet(connection,tweet):
         # create/update the user
 sql = sqlalchemy.sql.text("INSERT INTO users (id_users, created_at, updated_at, id_urls, friends_count, listed_count, favourites_count, statuses_count, protected, verified, screen_name, name, location, description, withheld_in_countries) VALUES (:id_users, :created_at, :updated_at, :id_urls, :friends_count, :listed_count, :favourites_count, :statuses_count, :protected, :verified, :screen_name, :name, :location, :description, :withheld_in_countries) ON CONFLICT DO NOTHING")
 
-        connection.execute(sql, {
+connection.execute(sql, {
             'id_users': tweet['user']['id'],
             'created_at': tweet['user']['created_at'],
             'updated_at': tweet['created_at'],
@@ -130,8 +130,8 @@ sql = sqlalchemy.sql.text("INSERT INTO users (id_users, created_at, updated_at, 
             'screen_name':remove_nulls(tweet['user']['screen_name']),
             'name':remove_nulls(tweet['user']['name']),
             'location':remove_nulls(tweet['user']['location']),
-             'description':remove_nulls(tweet['user']['description']),
-            'withheld_in_countries':tweet['user'].get('withheld_in_countries', None),
+            'description':remove_nulls(tweet['user']['description']),
+            'withheld_in_countries':tweet['user'].get('withheld_in_countries', None)
 
         ########################################
         # insert into the tweets table
