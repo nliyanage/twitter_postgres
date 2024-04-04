@@ -195,7 +195,7 @@ def insert_tweet(connection,tweet):
                 ''')
 
         # insert the tweet
-                sql=sqlalchemy.sql.text(f'''
+            sql=sqlalchemy.sql.text(f'''
             insert into tweets
                 (id_tweets, id_users, created_at, in_reply_to_status_id, in_reply_to_user_id, quoted_status_id, retweet_count, favorite_count, quote_count, withheld_copyright, withheld_in_countries, source, text, country_code, state_code, lang, place_name, geo)
             values
@@ -203,7 +203,7 @@ def insert_tweet(connection,tweet):
             on conflict do nothing
             ''') 
 
-                res = connection.execute(sql, {
+            res = connection.execute(sql, {
             'id_tweets':tweet['id'],
             'id_users':tweet['user']['id'],
             'created_at':tweet['created_at'],
