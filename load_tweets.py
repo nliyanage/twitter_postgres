@@ -100,7 +100,7 @@ def insert_tweet(connection,tweet):
         ''')
         res = connection.execute(sql,{
             'id_tweets':tweet['id'],
-            })  
+        })  
         if res.first() is not None:
             return
         ########################################
@@ -192,8 +192,13 @@ def insert_tweet(connection,tweet):
         # If the id is not in the users table, then you'll need to add it in an "unhydrated" form.
         if tweet.get('in_reply_to_user_id',None) is not None:
             sql=sqlalchemy.sql.text('''
+                insert into users (id_users)
+                values (:id_users)
+                on conflict do nothing
                 ''')
-
+            res = connection.execute(sql, {
+                'id_users':tweet['in_reply_to_user_id']
+                })
         # insert the tweet
             sql=sqlalchemy.sql.text(f'''
             insert into tweets
