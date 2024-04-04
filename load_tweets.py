@@ -135,7 +135,8 @@ def insert_tweet(connection,tweet):
             'name':remove_nulls(tweet['user']['name']),
             'location':remove_nulls(tweet['user']['location']),
             'description':remove_nulls(tweet['user']['description']),
-            'withheld_in_countries':tweet['user'].get('withheld_in_countries', None)})
+            'withheld_in_countries':tweet['user'].get('withheld_in_countries', None),
+            })
 
         ########################################
         # insert into the tweets table
