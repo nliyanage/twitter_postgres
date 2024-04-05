@@ -112,14 +112,15 @@ def insert_tweet(connection,tweet):
             user_id_urls = get_id_urls(tweet['user']['url'], connection)
 
         # create/update the user
-            sql = sqlalchemy.sql.text('''
+        sql = sqlalchemy.sql.text('''
             INSERT INTO users
                 (id_users, created_at, updated_at, screen_name, name, location, id_urls, description, protected, verified, friends_count, listed_count, favourites_count, statuses_count, withheld_in_countries)
             VALUES
                 (:id_users, :created_at, :updated_at, :screen_name, :name, :location, :id_urls, :description, :protected, :verified, :friends_count, :listed_count, :favourites_count, :statuses_count, :withheld_in_countries)
-                ON CONFLICT (id_users) DO NOTHING ''')
+                ON CONFLICT (id_users) DO NOTHING 
+            ''')
 
-            connection.execute(sql, {
+        connection.execute(sql, {
             'id_users': tweet['user']['id'],
             'created_at': tweet['user']['created_at'],
             'updated_at': tweet['created_at'],
